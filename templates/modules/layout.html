@@ -66,6 +66,11 @@
         th:href="${assets_link+'/plugins/animate/animate.min.css'}">
   <th:block th:insert="${head}"></th:block>
   <link rel="stylesheet" th:href="${assets_link+'/plugins/Qmsg/Qmsg.min.css'}">
+  <!-- require APlayer -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+  <!-- require MetingJS -->
+  <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
 </head>
 <body>
 <div id="Butterfly" th:class="${page}"
@@ -194,6 +199,11 @@
         th:class="'main flex animated fadeIn margin-0-auto '+ ${is_off_aside}"
   >
   </main>
+  <meting-js
+    server="netease"
+    type="playlist"
+    id="929596967">
+  </meting-js>
   <!--/* footer--><!--*/-->
   <footer class="footer text-center">
     <div class="copyright"
@@ -217,8 +227,8 @@
     </div>
     <halo:footer/>
     <div class="powered">Powered by&nbsp;
-      <a class="halo" href="https://halo.run/" target="_blank">Halo</a>&nbsp;|&nbsp;🌈 Theme by&nbsp;
-      <a class="theme" title="当前主题：Butterfly" href="https://github.com/dhjddcn/halo-theme-butterfly" target="_blank">小红</a>
+      <a class="halo" href="https://halo.run/" target="_blank">Halo</a>&nbsp;|&nbsp;Theme by&nbsp;
+      <a class="theme" title="当前主题：Butterfly" href="https://github.com/dhjddcn/halo-theme-butterfly" target="_blank">halo-theme-butterfly</a>
     </div>
   </footer>
   <!--/* 左右小部件--><!--*/-->

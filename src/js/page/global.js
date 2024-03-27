@@ -13,6 +13,7 @@ class Global {
     this.sidebar();
     this.scroll();
     this.runDay();
+    this.removelrc();
     createEvent();
   }
 
@@ -32,11 +33,11 @@ class Global {
     // 夜间模式切换
     $('.adsorption .switch-model').on('click', () => {
       const locDataTheme = localStorage.getItem('Butterfly-data-theme') || 'light';
-      
+
       const mode = locDataTheme === 'light' ? 'dark' : 'light';
 
       window.eventCore.emit('changeTheme', mode);
-      
+
       if (locDataTheme === 'light') {
 
         drawEcharts('dark', 1);
@@ -55,7 +56,7 @@ class Global {
         localStorage.setItem('Butterfly-data-theme', 'light');
 
         window.dataTheme = 'light';
-        
+
       }
 
     });
@@ -175,8 +176,37 @@ class Global {
 
     dom.html(day + ' 天');
   }
-}
 
+  // 新增：Aplayer默认关闭歌词的方法
+  removelrc() {
+    // 检测是否存在歌词按钮
+    const lrcIcon = document.querySelector(".aplayer-icon-lrc");
+    if (!lrcIcon) {
+      return;
+    }
+
+    // 创建并配置MutationObserver
+    const observer = new MutationObserver((mutationsList, observer) => {
+      for (let mutation of mutationsList) {
+        if (mutation.type === "childList") {
+          observer.disconnect(); // 触发以后立刻移除监听
+          setTimeout(() => {
+            lrcIcon.click(); // 点击以关闭歌词
+          }, 1);
+          console.log("success");
+        }
+      }
+    });
+
+    const observerConfig = {
+      childList: true,
+      subtree: true,
+    };
+
+    observer.observe(document, observerConfig); // 开始观察document节点的变化
+  }
+
+}
 !(() => {
   document.addEventListener("DOMContentLoaded", () => window.GlobalClass = new Global())
 })();

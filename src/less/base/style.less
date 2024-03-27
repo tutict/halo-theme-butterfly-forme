@@ -734,6 +734,108 @@ body {
 
 }
 
+// 定义主题颜色变量
+@day-mode-theme-color: var(--theme-color);
+@night-mode-theme-color: #d4d4d4;
+
+// Aplayer日间模式调整
+.aplayer {
+  background: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  &.aplayer-fixed {
+    .aplayer-lrc:after,
+    .aplayer-lrc:before {
+      display: none;
+    }
+
+    .aplayer-body {
+      background: rgba(255, 255, 255, 0.6) !important;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+      position: fixed;
+
+      // 圆角
+      &,
+      + .aplayer-list {
+        border-radius: 6px 6px 0 0 !important;
+      }
+
+      // 窄屏模式下body的过渡效果和圆角
+      &.aplayer-narrow {
+        transition: 0.28s !important;
+        border-radius: 6px !important;
+      }
+    }
+
+    // 滚动条
+    .aplayer-list ol::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .aplayer-list ol::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      background-color: @day-mode-theme-color !important;
+
+      &:hover {
+        background-color: @day-mode-theme-color !important;
+      }
+    }
+  }
+
+  // 选中与播放中歌曲激活颜色
+  .aplayer-list ol li {
+    &:hover,
+    &.aplayer-list-light {
+      background: @day-mode-theme-color !important;
+    }
+  }
+
+  // 歌词
+  .aplayer-lrc p {
+    color: #ffffff !important;
+    text-shadow: #000000 1px 0 0, #000000 0 1px 0, #000000 -1px 0 0, #000000 0 -1px 0 !important;
+  }
+}
+
+// Aplayer黑暗模式 (使用[data-theme="dark"]选择器)
+[data-theme="dark"] {
+  .aplayer {
+    background: rgba(22, 22, 22, 0.6) !important;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+
+    &.aplayer-fixed {
+      .aplayer-body {
+        background: rgba(22, 22, 22, 0.6) !important;
+        color: rgb(255, 255, 255);
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path {
+      fill: @night-mode-theme-color;
+    }
+
+    .aplayer-list ol li {
+      &:hover,
+      &.aplayer-list-light {
+        background: @night-mode-theme-color !important;
+      }
+    }
+
+    .aplayer-info .aplayer-controller .aplayer-time {
+      color: @night-mode-theme-color;
+    }
+
+    .aplayer-list ol li {
+      .aplayer-list-index,
+      .aplayer-list-author {
+        color: @night-mode-theme-color;
+      }
+    }
+  }
+}
 
 //底部
 .footer {
