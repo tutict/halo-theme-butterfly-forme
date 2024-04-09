@@ -1,7 +1,7 @@
 {
   "name": "halo-theme-butterfly",
-  "version": "2.0.5",
-  "description": "一个Halo博客主题，Butterfly",
+  "version": "2.0.5-t0.1",
+  "description": "一个Halo博客主题，Butterfly-forme",
   "scripts": {
     "dev": "gulp watch",
     "clean": "gulp clean",
@@ -41,12 +41,15 @@
     "type": "git"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/plugin-transform-runtime": "^7.15.0",
-    "@babel/preset-env": "^7.15.6",
-    "@babel/runtime": "^7.20.7",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.2.3",
+    "@babel/core": "latest",
+    "@babel/eslint-parser": "latest",
+    "@babel/plugin-proposal-decorators": "latest",
+    "@babel/plugin-transform-runtime": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/runtime": "latest",
+    "babel-loader": "latest",
+    "chokidar": "^3.6.0",
+    "fsevents": "^2.3.3",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-babel": "^8.0.0",
@@ -59,7 +62,10 @@
     "gulp-zip": "^5.1.0",
     "inquirer": "^7.3.3",
     "jszip": "^3.10.1",
-    "webpack": "^5.68.0",
+    "resolve-url": "latest",
+    "source-map-resolve": "latest",
+    "source-map-url": "latest",
+    "webpack": "^5.76.2",
     "webpack-stream": "^7.0.0",
     "yamljs": "^0.3.0"
   }

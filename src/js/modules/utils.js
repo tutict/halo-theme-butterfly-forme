@@ -31,10 +31,9 @@ export function debounce(func, wait, immediate) {
  * 节流
  * @param func
  * @param wait
- * @param options
  * @returns {(function(): void)|*}
  */
-export function throttle(func, wait, options) {
+export function throttle(func, wait) {
   let timeOut, context, args
   let previous = 0
   if (!options) options = {}
