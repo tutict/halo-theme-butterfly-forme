@@ -101,24 +101,81 @@ class Global {
     dom.html(`${day} 天`);
   }
 
-  removelrc() {
-    const lrcIcon = document.querySelector(".aplayer-icon-lrc");
-    if (!lrcIcon) return;
-    const observer = new MutationObserver((mutationsList, observer) => {
-      for (let mutation of mutationsList) {
-        if (mutation.type === "childList") {
-          observer.disconnect();
-          setTimeout(() => {
-            lrcIcon.click();
-          }, 1);
-        }
+  /**
+   * Register Fixed APlayer
+   */
+  registerFixedAPlayer() {
+    const aplayerFloat = butterfly.getThemeConfig("additional", "aplayer_float", Boolean)?.valueOf();
+    if (!aplayerFloat) {
+      return;
+    }
+
+    const musicHost = butterfly.getThemeConfig("additional", "aplayer_host", String)?.valueOf();
+    const musicServer = butterfly.getThemeConfig("additional", "aplayer_server", String)?.valueOf();
+    const musicType = butterfly.getThemeConfig("additional", "aplayer_type", String)?.valueOf();
+    const musicId = butterfly.getThemeConfig("additional", "aplayer_id", String)?.valueOf();
+
+    // http://example.com/api.php?server=:server&type=:type&id=:id&r=:r
+    const musicAPI = `${musicHost}?server=${musicServer}&type=${musicType}&id=${musicId}&r=${Math.random()}`;
+
+    fetch(musicAPI)
+      .then((response) => response.json())
+      .then((data) => {
+        import("aplayer").then(async (module) => {
+          await import("aplayer/dist/APlayer.min.css");
+          const APlayer = module.default;
+          const aplayerElement = createFixedAPlayerElement();
+          const flxedAplayerOptions = {
+            container: aplayerElement,
+            mini: true,
+            fixed: true,
+            autoplay: false,
+            mutex: true,
+            lrcType: 3,
+            preload: "auto",
+            theme: "#2980b9",
+            loop: "all",
+            order: "list",
+            volume: null,
+            listFolded: false,
+            listMaxHeight: "250px",
+            customAudioType: null,
+            storageName: "butterfly",
+            audio: {},
+          };
+
+          flxedAplayerOptions.audio = data;
+          const fixAplayer = new APlayer(flxedAplayerOptions);
+          fixAplayer.lrc.hide();
+          // Add hover for buttons
+          aplayerElement.querySelector(".aplayer-body")?.classList.add("ap-hover");
+          aplayerElement.addEventListener(
+            "click",
+            () => {
+              fixAplayer.lrc.show();
+            },
+            {
+              once: true,
+            }
+          );
+        });
+      })
+      .catch((error) => {
+        console.error("APlayer API Error: ", error);
+      });
+
+    const createFixedAPlayerElement = () => {
+      if (document.querySelector("#aplayer-float")) {
+        return document.querySelector("#aplayer-float");
       }
-    });
-    const observerConfig = {
-      childList: true,
-      subtree: true,
+      const fixedAPlayerElement = document.createElement("div");
+      fixedAPlayerElement.id = "aplayer-float";
+      fixedAPlayerElement.classList.add("aplayer");
+      fixedAPlayerElement.classList.add("aplayer-float");
+
+      document.body.appendChild(fixedAPlayerElement);
+      return fixedAPlayerElement;
     };
-    observer.observe(document, observerConfig);
   }
 }
 

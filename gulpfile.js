@@ -5,7 +5,7 @@ const minifyCSS = require('gulp-csso');
 const autoPrefix = require('gulp-autoprefixer');
 const rename = require('gulp-rename');
 const gzip = require("gulp-gzip");
-const webpack = require("webpack-stream");
+const vite = require("vite");
 const path = require("path");
 const fs = require("fs");
 const clean = require("gulp-clean");
@@ -15,8 +15,6 @@ const yaml = require('yamljs');
 const inquirer = require('inquirer');
 
 const resolve = (name) => path.resolve(__dirname, name);
-
-const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
 
 gulp.task("clean", () => {
@@ -65,7 +63,7 @@ gulp.task("js", function () {
     }
   };
 
-  return webpack({
+  return vite({
     mode: "production",
     entry: getEntryData(),
     module: {

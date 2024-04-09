@@ -734,106 +734,137 @@ body {
 
 }
 
-// 定义主题颜色变量
-@day-mode-theme-color: var(--theme-color);
-@night-mode-theme-color: #d4d4d4;
-
-// Aplayer日间模式调整
+/* Aplayer黑暗模式 */
 .aplayer {
-  background: rgba(255, 255, 255, 0.6) !important;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-  position: relative;
+  --aplayer-color: #000;
+  --aplayer-background-color: #fff;
+  --aplayer-list-border: 1px solid #eee;
+  --aplayer-list-light-background-color: #e9e9e9;
+  --aplayer-list-top-border: 1px solid var(--aplayer-list-light-background-color);
+  --aplayer-list-author-color: #666;
+  --aplayer-body-miniswitcher-background-color: #e6e6e6;
+  --aplayer-lrc-text-shadow: -1px -1px 0 #fff;
+  --aplayer-list-hover-background-color: #efefef;
 
   &.aplayer-fixed {
-    .aplayer-lrc:after,
-    .aplayer-lrc:before {
-      display: none;
+    background: var(--aplayer-background-color);
+    color: var(--aplayer-color);
+
+    .aplayer-list {
+      border: var(--aplayer-list-border) !important;
+
+      ol {
+        li {
+          border-top: var(--aplayer-list-top-border);
+
+          &:hover {
+            background: var(--aplayer-list-hover-background-color);
+          }
+
+          &.aplayer-list-light {
+            background: var(--aplayer-list-light-background-color) !important;
+          }
+
+          .aplayer-list-author {
+            color: var(--aplayer-list-author-color);
+          }
+        }
+      }
     }
 
     .aplayer-body {
-      background: rgba(255, 255, 255, 0.6) !important;
-      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-      position: fixed;
+      background: var(--aplayer-background-color) !important;
+      color: var(--aplayer-color);
 
-      // 圆角
-      &,
-      + .aplayer-list {
-        border-radius: 6px 6px 0 0 !important;
+      .aplayer-info {
+        border-top: var(--aplayer-list-top-border);
+
+        .aplayer-controller {
+          .aplayer-time {
+            .aplayer-icon {
+              &:hover {
+                path {
+                  fill: var(--theme-color);
+                }
+              }
+            }
+          }
+        }
       }
 
-      // 窄屏模式下body的过渡效果和圆角
-      &.aplayer-narrow {
-        transition: 0.28s !important;
-        border-radius: 6px !important;
+      .aplayer-miniswitcher {
+        background: var(--aplayer-body-miniswitcher-background-color);
+        color: var(--aplayer-color);
+
+        &:hover {
+          path {
+            fill: var(--theme-color);
+          }
+        }
       }
     }
 
-    // 滚动条
-    .aplayer-list ol::-webkit-scrollbar {
-      width: 5px;
+    .aplayer-lrc {
+      text-shadow: var(--aplayer-lrc-text-shadow);
     }
+  }
 
-    .aplayer-list ol::-webkit-scrollbar-thumb {
-      border-radius: 3px;
-      background-color: @day-mode-theme-color !important;
+  .aplayer-list {
+    ol {
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--theme-color) !important;
 
-      &:hover {
-        background-color: @day-mode-theme-color !important;
+        &:hover {
+          background-color: var(--theme-color) !important;
+        }
       }
     }
   }
 
-  // 选中与播放中歌曲激活颜色
-  .aplayer-list ol li {
-    &:hover,
-    &.aplayer-list-light {
-      background: @day-mode-theme-color !important;
+  .aplayer-lrc {
+    pointer-events: none;
+
+    &::before,
+    &::after {
+      background: rgba(255, 255, 255, 0);
+      filter: none;
+    }
+
+    .aplayer-lrc-current {
+      color: var(--theme-color);
+      font-size: 15px;
+      font-weight: bold;
     }
   }
 
-  // 歌词
-  .aplayer-lrc p {
-    color: #ffffff !important;
-    text-shadow: #000000 1px 0 0, #000000 0 1px 0, #000000 -1px 0 0, #000000 0 -1px 0 !important;
+  .aplayer-icon,
+  .aplayer-miniswitcher {
+    border-radius: 0 6px 6px 0 !important;
   }
 }
 
-// Aplayer黑暗模式 (使用[data-theme="dark"]选择器)
-[data-theme="dark"] {
+.aplayer-narrow {
+  .ap-hover {
+    border-radius: 0 6px 6px 0 !important;
+    left: -66px !important;
+
+    &:hover {
+      left: 0 !important;
+    }
+  }
+}
+
+.dark {
   .aplayer {
-    background: rgba(22, 22, 22, 0.6) !important;
-    color: rgb(255, 255, 255);
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-
-    &.aplayer-fixed {
-      .aplayer-body {
-        background: rgba(22, 22, 22, 0.6) !important;
-        color: rgb(255, 255, 255);
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-      }
-    }
-
-    .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path {
-      fill: @night-mode-theme-color;
-    }
-
-    .aplayer-list ol li {
-      &:hover,
-      &.aplayer-list-light {
-        background: @night-mode-theme-color !important;
-      }
-    }
-
-    .aplayer-info .aplayer-controller .aplayer-time {
-      color: @night-mode-theme-color;
-    }
-
-    .aplayer-list ol li {
-      .aplayer-list-index,
-      .aplayer-list-author {
-        color: @night-mode-theme-color;
-      }
-    }
+    --aplayer-color: #eee;
+    --aplayer-background-color: #232629;
+    --aplayer-list-border: none;
+    --aplayer-list-light-background-color: #31363b;
+    --aplayer-list-top-border: none;
+    --aplayer-list-author-color: eee;
+    --aplayer-body-miniswitcher-background-color: var(--aplayer-background-color);
+    --aplayer-lrc-text-shadow: -1px -1px 0 #989898;
+    --aplayer-list-hover-background-color: var(--theme-color);
   }
 }
 

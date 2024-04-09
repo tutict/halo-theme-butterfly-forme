@@ -66,11 +66,6 @@
         th:href="${assets_link+'/plugins/animate/animate.min.css'}">
   <th:block th:insert="${head}"></th:block>
   <link rel="stylesheet" th:href="${assets_link+'/plugins/Qmsg/Qmsg.min.css'}">
-  <!-- require APlayer -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
-  <!-- require MetingJS -->
-  <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
 </head>
 <body>
 <div id="Butterfly" th:class="${page}"
@@ -199,11 +194,6 @@
         th:class="'main flex animated fadeIn margin-0-auto '+ ${is_off_aside}"
   >
   </main>
-  <meting-js
-    server="netease"
-    type="playlist"
-    id="929596967">
-  </meting-js>
   <!--/* footer--><!--*/-->
   <footer class="footer text-center">
     <div class="copyright"
