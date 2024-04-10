@@ -33,7 +33,7 @@ class Global {
     this.sidebar();
     this.scroll();
     this.runDay();
-    this.removelrc();
+    this.registerFixedAPlayer();
   }
 
   switchSidebar(tp) {
