@@ -5,7 +5,6 @@ const minifyCSS = require('gulp-csso');
 const autoPrefix = require('gulp-autoprefixer');
 const rename = require('gulp-rename');
 const gzip = require("gulp-gzip");
-const vite = require("vite");
 const path = require("path");
 const fs = require("fs");
 const clean = require("gulp-clean");
@@ -13,6 +12,7 @@ const zip = require('gulp-zip');
 const exec = require('child_process').exec;
 const yaml = require('yamljs');
 const inquirer = require('inquirer');
+const webpack = require("webpack-stream");
 
 const resolve = (name) => path.resolve(__dirname, name);
 
@@ -63,7 +63,7 @@ gulp.task("js", function () {
     }
   };
 
-  return vite({
+  return webpack({
     mode: "production",
     entry: getEntryData(),
     module: {
@@ -75,18 +75,21 @@ gulp.task("js", function () {
           exclude: resolve("node_modules"),
           options: {
             presets: ["@babel/preset-env"],
-            plugins: ["@babel/plugin-transform-runtime",],
-          },
+            plugins: ["@babel/plugin-transform-runtime"]
+          }
         },
-      ],
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
+        }
+      ]
     },
-
     stats: "errors-only",
     output: {
-      filename: "[name].min.js",
-    },
-
-  })
+      filename: "[name].min.js"
+    }
+  }) 
+    
     .pipe(uglify())
     .pipe(gulp.dest('./templates/assets/js'))
     .pipe(

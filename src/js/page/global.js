@@ -105,15 +105,15 @@ class Global {
    * Register Fixed APlayer
    */
   registerFixedAPlayer() {
-    const aplayerFloat = butterfly.getThemeConfig("additional", "aplayer_float", Boolean)?.valueOf();
+    const aplayerFloat = true;
     if (!aplayerFloat) {
       return;
     }
 
-    const musicHost = butterfly.getThemeConfig("additional", "aplayer_host", String)?.valueOf();
-    const musicServer = butterfly.getThemeConfig("additional", "aplayer_server", String)?.valueOf();
-    const musicType = butterfly.getThemeConfig("additional", "aplayer_type", String)?.valueOf();
-    const musicId = butterfly.getThemeConfig("additional", "aplayer_id", String)?.valueOf();
+    const musicHost = "https://api.injahow.cn/meting/";
+    const musicServer = "netease";
+    const musicType = "list";
+    const musicId = "929596967";
 
     // http://example.com/api.php?server=:server&type=:type&id=:id&r=:r
     const musicAPI = `${musicHost}?server=${musicServer}&type=${musicType}&id=${musicId}&r=${Math.random()}`;
